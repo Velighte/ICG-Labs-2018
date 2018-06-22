@@ -1,0 +1,197 @@
+<html> 
+    <head> 		
+        <script type='text/javascript' src="http://x3dom.org/release/x3dom-full.js"> </script> 
+        <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link> 
+    </head> 
+        <body> 
+            <h1>Лабораторная работа №5 </h1> 
+            <p> 
+                Анимация с использованием таймеров и линейных интерполяторов  
+            </p> 
+            <x3d width='1200px' height='500px'> 
+                <scene>                            
+ 
+                    <!--  интерполяция между значениями одиночной координаты (тип SFVec3f)-->
+                    <!--  Машина едет по координатам-->                                                            
+                    <!--Для обхода вечной загрузки в браузере надо запустить браузер с локальным доступом -->
+                    <!-- 1. Запустить cmd и набрать cd C:\Program Files (x86)\Google\Chrome\Application -->
+                    <!-- 2. chrome --allow-file-access-from-files file:///C:/test%20-%203.html -->
+                    <Group DEF="Gr1">       
+                        <TimeSensor DEF='Time' cycleInterval='5' loop='true' enabled='true'></TimeSensor>
+                        <PositionInterpolator   DEF='PosInt' key='0 0.23 0.5 0.75 1'
+                                            keyValue='-40 0 7, -20 0 7, 0 0 7, 20 0 7, 40 0 7 '>
+                        </PositionInterpolator>
+                        <transform DEF='Trans' translation='-40 0 7'>
+                            <inline url="BMW.x3d"> </inline>
+                        </transform>
+                        <ROUTE  fromNode='Time' fromField='fraction_changed'
+                                toNode='PosInt' toField='set_fraction'></ROUTE>
+                        <ROUTE  fromNode='PosInt' fromField='value_changed'
+                                toNode='Trans' toField='set_translation'></ROUTE>
+                    </Group>
+
+                    <!-- Светофор с мигающим красным сигналом-->                 
+                    <transform translation='-2.5 0.5 9' rotation='0 1 0 1.6' >
+                            <inline url="Light.x3d"> </inline>
+                    </transform>
+
+                    <!-- Интерполятор цвета-->
+                    <!-- Мигание красного сигнала-->
+                    <Group DEF="Gr2">
+                        <TimeSensor DEF='Time' cycleInterval='1' loop='true'> </TimeSensor> <!--cycleInterval - Интервал цикла в секундах, loop – зациклен таймер или нет-->
+                        <ColorInterpolator DEF='ColInt' key='0 1'
+                                                        keyValue='1 0 0, 0 0 0'>
+                        </ColorInterpolator>
+                        <transform translation='-3 0.5 9'>
+                            <Shape DEF='Sphere1'>
+                                <Appearance>
+                                    <Material DEF='Mat' diffuseColor='1 0 0'></Material>
+                                </Appearance>
+                                <Sphere radius='0.16' ></Sphere>
+                            </Shape>                            
+                        </transform>
+                        <transform translation='-2 0.5 9'>
+                            <Shape USE='Sphere1'></Shape>                                                    
+                        </transform>
+                        <ROUTE  fromNode='Time' fromField='fraction_changed'
+                                toNode='ColInt' toField='set_fraction'></ROUTE>
+                        <ROUTE  fromNode='ColInt' fromField='value_changed'
+                                toNode='Mat' toField='set_diffuseColor'></ROUTE>
+                        <ROUTE  fromNode='ColInt' fromField='value_changed'
+                                toNode='Mat' toField='set_diffuseColor'></ROUTE>
+                    </Group>
+
+                    <!--Забор-->
+                    <Transform translation='0 2 -30'>
+                        <Shape DEF='Box1'>
+                            <appearance> 
+                                <textureTransform scale='1 1'></textureTransform> 
+                                <imageTexture url='https://image.ibb.co/cv5qHc/stripes1.jpg'> </imageTexture>
+                            </appearance>
+                            <Box size='0.3 7 40'></Box>
+                        </Shape>
+                    </Transform>
+                    <transform translation='0 2 30'>
+                        <Shape USE='Box1'></Shape>                                                    
+                    </transform>
+                                        
+                    <!--появление ограждения-->
+                    <Group DEF="Gr3">
+                        <TimeSensor DEF='Time' cycleInterval='5' loop='true'> </TimeSensor>
+                        <PositionInterpolator DEF='ScInt' key='0 0.3 0.55 0.7 0.8 0.9 1.0'
+                                            keyValue='0 -3.42 -1, 0 -3.42 -1, 0 -3.42 -1, 0 2 -1, 0 2 -1, 0 2 -1, 0 -3.42 -1'>
+                        </PositionInterpolator>
+                        <Transform DEF='Cylinder1' translation='0 0 0'>
+                            <Transform DEF='Mat1' translation='0 0 0'>
+                                <Shape >
+                                    <appearance> 
+                                        <textureTransform scale='1 1'></textureTransform> 
+                                        <imageTexture url='https://image.ibb.co/cv5qHc/stripes1.jpg'> </imageTexture>
+                                    </appearance>
+                                    <Cylinder  height='7' radius='0.3'></Cylinder>
+                                </Shape>
+                            </Transform>
+                        </Transform>
+
+                        <transform DEF='Transform1'>
+                            <transform translation='0 0 -8'>
+                                    <Shape USE='Cylinder1'></Shape>                                                    
+                            </transform>
+                            <transform translation='0 0 -7'>
+                                    <Shape USE='Cylinder1'></Shape>                                                    
+                            </transform>
+                            <transform translation='0 0 -6'>
+                                    <Shape USE='Cylinder1'></Shape>                                                    
+                            </transform>
+                            <transform translation='0 0 -5'>
+                                    <Shape USE='Cylinder1'></Shape>                                                    
+                            </transform>
+                            <transform translation='0 0 -4'>
+                                    <Shape USE='Cylinder1'></Shape>                                                    
+                            </transform>
+                            <transform translation='0 0 -3'>
+                                    <Shape USE='Cylinder1'></Shape>                                                    
+                            </transform>
+                            <transform translation='0 0 -2'>
+                                    <Shape USE='Cylinder1'></Shape>                                                    
+                            </transform> 
+                        </transform>
+                        <transform translation='0 0 6'>
+                                <transform USE='Transform1'></transform>
+                        </transform>
+                        <transform translation='0 0 12'>
+                                <transform USE='Transform1'></transform>
+                        </transform>                                   
+                        <ROUTE  fromNode='Time' fromField='fraction_changed'
+                                toNode='ScInt' toField='set_fraction'></ROUTE>
+                        <ROUTE  fromNode='ScInt' fromField='value_changed'
+                                toNode='Mat1' toField='set_translation'></ROUTE>
+                    </Group>
+                            
+                    <!-- столбы для выджижного заграждения заграждения-->
+                    <Transform translation='0.5 0 -14'>
+                        <Shape DEF='Cylinder2'>
+                            <appearance> 
+                                <textureTransform scale='1 1'></textureTransform> 
+                                <imageTexture url='https://image.ibb.co/cv5qHc/stripes1.jpg'> </imageTexture>
+                            </appearance>
+                            <Cylinder DEF='Mat1' height='12' radius='0.3'></Cylinder>
+                        </Shape>
+                    </Transform>
+
+                    <transform translation='0.5 0 14'>
+                        <transform USE='Cylinder2'></transform>
+                    </transform>
+
+                    <!-- Красное выдвижное заграждение--> 
+                    <!-- интерполяция между значениями набора координат (тип MFVec3f)-->
+                    <Group DEF="Gr4">
+                        <TimeSensor DEF='Time' cycleInterval='5' loop='true'></TimeSensor>
+                        <CoordinateInterpolator DEF='CoordInt'  key='0 0.2 0.4 0.6 0.8 1'
+                                                keyValue='  0.5 0 -14, 0.5 5 -14, 0.5 5 -14, 0.5 0 -14,
+                                                            0.5 0 -14, 0.5 5 -14, 0.5 5 -7, 0.5 0 -7,
+                                                            0.5 0 -14, 0.5 5 -14, 0.5 5 0, 0.5 0 0,
+                                                            0.5 0 -14, 0.5 5 -14, 0.5 5 7, 0.5 0 7,
+                                                            0.5 0 -14, 0.5 5 -14, 0.5 5 14, 0.5 0 14,
+                                                            0.5 0 -14, 0.5 5 -14, 0.5 5 -14, 0.5 0 -14'>
+                        </CoordinateInterpolator>
+                        <Shape>
+                            <Appearance>
+                                <material diffuseColor='#ff0000'></material>
+                            </Appearance>
+                            <IndexedFaceSet coordIndex='0 1 2 3 -1' solid="false">
+                                <Coordinate DEF='Coord' point='0.5 0 -14, 0.5 5 -14, 0.5 5 -14, 0.5 0 -14'></Coordinate>
+                            </IndexedFaceSet>
+                        </Shape>
+                        <ROUTE  fromNode='Time' fromField='fraction_changed'
+                                toNode='CoordInt' toField='set_fraction'></ROUTE>
+                        <ROUTE  fromNode='CoordInt' fromField='value_changed'
+                                toNode='Coord' toField='set_point'></ROUTE>
+                    </Group>
+
+                    <!-- Вращение дороги-->                            
+                    <!-- интерполяция между значениями вектора ориентации в пространстве (тип SFRotation)-->
+                    <Group DEF="Gr5">
+                        <TimeSensor DEF='Time' cycleInterval='5' loop='true'></TimeSensor>
+                        <OrientationInterpolator    DEF='OrientInt' key='0 0.25 0.5 0.75 1'
+                                                    keyValue='0 1 0 0, 0 1 0 0, 0 1 0 0, 0 1 0 0, 0 1 0 3.14'>
+                        </OrientationInterpolator>
+                                    <transform DEF='TRANS2' translation='0 -0.5 0'> 
+                                        <shape> 
+                                            <appearance> 
+                                                <textureTransform></textureTransform> 
+                                                <imageTexture url='https://image.ibb.co/gR7W7c/2011_07_09_00633.jpg'> </imageTexture>
+                                            </appearance> 
+                                            <Box size='100 1 100'></Box>  
+                                        </shape> 
+                                    </transform>
+                        <ROUTE  fromNode='Time' fromField='fraction_changed' 
+                            toNode='OrientInt' toField='set_fraction'></ROUTE>
+                        <ROUTE  fromNode='OrientInt' fromField='value_changed'
+                            toNode='TRANS2' toField='set_rotation'></ROUTE>
+                    </Group>
+
+                </scene>        
+            </x3d>
+        </body> 
+</html>

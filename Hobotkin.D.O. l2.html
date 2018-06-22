@@ -1,0 +1,75 @@
+<html> 
+        <head> 		
+            <script type='text/javascript' src='http://www.x3dom.org/download/x3dom.js'> </script> 
+            <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link> 
+        </head> 
+        <body> 
+            <h1>Лабораторная работа №2 </h1> 
+            <p> 
+                Геометрические примитивы. Трансформация. Материалы. Текстурирование.  
+            </p> 
+            <x3d width='1200px' height='500px'> 
+                <scene> 
+                    <transform translation='0 0 0'> <!--translation – смещение по осям X Y Z.--> 
+                        <shape>     <!--форма-->     
+                            <appearance>      <!--внешний вид-->
+                                <imageTexture url='http://res.guap.ru/files/logos/full/guap-main.png'> </imageTexture>
+                            </appearance> 
+                            <box></box> 
+                        </shape> 
+                    </transform> 
+                    
+                    <transform translation='3 2 -50' scale='10 10 10'> 
+                        <shape> 
+                            <appearance> 
+                                <textureTransform scale='3 1' rotation='0.1'></textureTransform> <!--scale – определяет коэффициенты масштабирования осей s и t. rotation – определяет угол (в радианах) поворота осей координат (s,t)-->
+                                <imageTexture url='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5UgszAOVmVnq92znEoWfsIdDU_SqEJkRfW4Z8wg8fHAA4dtC'> </imageTexture>
+                            </appearance> 
+                            <Sphere></Sphere> 
+                        </shape> 
+                    </transform>
+
+                    <transform translation='-7 0 0' rotation='1 1 1 3.2'> 
+                        <shape> 
+                            <appearance> 
+                                <material diffuseColor='#00ff00'></material> <!--diffuseColor – нормальный цвет объекта (R G B, каждые R,G или B в интервале от 0 до 1; например, серый – 0.5 0.5 0.5). Описывает цвет отражаемого объектом света в зависимости от удаленности источника освещения и угла падения света на поверхность объекта.--> 
+                            </appearance> 
+                            <cylinder></cylinder> 
+                        </shape> 
+                    </transform>
+
+                    <transform translation='0 3 0'> 
+                        <shape> 
+                            <appearance> 
+                                <material diffuseColor='#ff33cc'></material> 
+                            </appearance> 
+                            <cone></cone>   <!--конус--> 
+                        </shape> 
+                    </transform>
+
+                    <transform translation='0 -3 0'> 
+                        <shape> 
+                            <appearance> 
+                                <material diffuseColor='#ffff66'></material> 
+                            </appearance> 
+                            <torus></torus> 
+                        </shape> 
+                    </transform>
+
+                    <transform translation='0 5 0'>
+                        <shape>
+                            <appearance>
+                                <material diffuseColor='#000000'></material>                           
+                            </appearance> 
+                            <text string="Denis" solid="false">  <!--string –строки текста, которые будут отображены.-->
+                                <fontstyle style="italic"></fontstyle> <!--style - стиль шрифта: “PLAIN” (обычный), “BOLD” (полужирный), “ITALIC” (курсив) или “BOLDITALIC” (полужирный курсив).-->
+                            </text>
+                        </shape>
+                </scene> 
+            </x3d>
+        </body> 
+    </html>  
+
+ 
+
+
